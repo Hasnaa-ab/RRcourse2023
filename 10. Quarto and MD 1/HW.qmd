@@ -1,0 +1,148 @@
+---
+title: "Suits TV Show"
+author: "Hassnaa Abdelghany"
+format: 
+  html:
+    code-fold: true
+    css: styles.css
+    
+editor: visual
+toc: true
+---
+
+<div>
+<iframe width= 100% height= 600px src="https://www.youtube.com/embed/cUnkjEIW2-o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+
+## Introduction
+
+Suits is a popular American legal drama television series created by Aaron Korsh. The show originally premiered on June 23, 2011, and ran for nine seasons until its conclusion on September 25, 2019. With its engaging storyline, compelling characters, and witty dialogue, Suits has garnered a large and devoted fan base.
+
+## Synopsis
+Suits revolves around the fast-paced world of corporate law and the intricacies of the legal profession. Set in the fictional law firm Pearson Hardman (later renamed Pearson Specter Litt), the series follows the brilliant college dropout Mike Ross, played by Patrick J. Adams, who starts working as a law associate for Harvey Specter, portrayed by Gabriel Macht, despite never having attended law school.
+
+As Mike and Harvey form an unconventional but formidable team, they navigate high-stakes cases, corporate politics, and personal challenges. The series delves into themes of loyalty, ambition, integrity, and the lengths people are willing to go to protect their secrets and succeed in the cutthroat legal world.
+
+## Characters
+1.  Harvey Specter (Gabriel Macht): A talented and charismatic lawyer known for his razor-sharp wit and unorthodox methods.
+2.  Mike Ross (Patrick J. Adams): A brilliant young man with a photographic memory who works as a "fake" lawyer.
+3.  Donna Paulsen (Sarah Rafferty): Harvey's sharp-witted and fiercely loyal secretary, known for her exceptional memory and intuitive skills.
+4.  Louis Litt (Rick Hoffman): A highly skilled but socially awkward lawyer who struggles with feelings of inferiority.
+5.  Jessica Pearson (Gina Torres): The powerful and astute managing partner of the law firm, known for her strategic brilliance.
+
+## Impact and Legacy
+
+Suits achieved significant success during its run, captivating audiences with its intriguing plotlines, charismatic characters, and clever dialogue. The show received critical acclaim for its performances, writing, and portrayal of legal matters. It also launched the careers of several actors, further solidifying its cultural impact.
+
+Suits has influenced popular culture, garnering a dedicated fan following and inspiring spin-offs, international adaptations, and references in other media. The series highlighted the dynamics of the legal profession, showcasing the high-stakes nature of corporate law and the personal sacrifices required for success.
+
+<div class="picture-bar">
+  <a id='9o1EfQg-SJ1PIuhElvdBeg' class='gie-slideshow' href='http://www.gettyimages.com/detail/463517113' target='_blank' style='color:#a7a7a7;text-decoration:none;font-weight:normal !important;border:none;display:inline-block;'>Embed from Getty Images</a><script>window.gie=window.gie||function(c){(gie.q=gie.q||[]).push(c)};gie(function(){gie.widgets.load({id:'9o1EfQg-SJ1PIuhElvdBeg',sig:'Pi2lHb1phuSXkpbtDL2rf16Ho97sqr_4RScJ83pkcv0=',w:'594px',h:'271px',items:'463517113,144693170,146233772,159516080',caption: true ,tld:'com',is360: false })});</script><script src='//embed-cdn.gettyimages.com/widgets.js' charset='utf-8' async></script>
+</div>
+
+```{r}
+# Create the data frame
+season <- c(1, 2, 3, 4, 5, 6, 7, 8, 9)
+episode_number <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+episode_number <- sapply(episode_number, function(x) paste('E',x))
+
+data <- c(
+  4.64, 3.89, 4.53, 4.38, 4.38, 4.44, 4.03, 3.96, 4.45, 3.82, 3.96, 3.47, 0,    0,    0,    0,
+  3.47, 3.80, 3.88, 3.70, 3.72, 3.89, 3.41, 3.42, 4.00, 4.48, 3.57, 3.75, 3.36, 3.07, 2.90, 3.20,
+  2.93, 2.89, 2.48, 2.99, 2.79, 2.76, 2.79, 3.52, 2.95, 3.16, 2.28, 2.28, 2.35, 2.53, 2.50, 2.40,
+  2.50, 2.65, 2.76, 2.42, 2.33, 2.70, 2.81, 2.59, 2.59, 2.76, 1.87, 1.67, 1.46, 1.70, 1.80, 1.55,
+  2.13, 2.27, 2.16, 2.38, 2.10, 2.16, 2.08, 2.31, 2.30, 2.34, 1.74, 1.51, 1.71, 1.58, 1.73, 1.71,
+  1.85, 1.65, 1.78, 1.81, 1.51, 1.68, 1.83, 1.88, 1.87, 1.92, 1.37, 1.53, 1.28, 1.21, 1.25, 1.13,
+  1.40, 1.36, 1.41, 1.41, 1.29, 1.47, 1.35, 1.51, 1.64, 1.68, 1.18, 1.06, 0.95, 0.99, 1.09, 1.07,
+  1.27, 1.18, 1.16, 1.09, 1.15, 1.22, 1.13, 1.30, 1.07, 1.08, 0.82, 0.91, 0.77, 0.78, 0.69, 0.74,
+  1.04, 1.04, 0.94, 1.00, 0.96, 1.05, 1.07, 0.97, 0.96, 0.86, 0,    0,    0,    0,    0,    0
+)
+
+num_rows <- 9
+num_cols <- 16
+
+mat <- matrix(data, nrow = num_rows, ncol = num_cols, byrow = TRUE)
+rating = as.data.frame(mat)
+names(rating) <- episode_number
+
+# Average rating  season wise
+seasonAvg <- as.data.frame(apply(rating, 1, mean))
+seasonAvg <- cbind(1:9, seasonAvg)
+names(seasonAvg) <- c('season', 'rate')
+
+library(ggplot2)
+
+ggplot(data = seasonAvg, aes(factor(season), rate) )+ geom_col()+ geom_hline(yintercept = mean(seasonAvg$rate)) + labs(title = "Season Average Rating", x = "Episode")
+
+
+```
+::: {.panel-tabset}
+
+## Season 1
+
+```{r}
+
+  plotrating = function(data,s){
+
+  subdata <- as.data.frame(t(data))[s]
+  seasoncol <- paste('V',s, sep = '')
+  subdata$episode <- factor(seq(1,16), labels = rownames(subdata))
+  
+  ggplot(subdata, aes_string(seasoncol, 'episode')) + geom_col() + labs(title = "Seaon Rating per Episode", x= 'Rating' ) 
+  }
+  plotrating(rating,1)
+  
+```
+
+## Season 2
+
+```{r}
+plotrating(rating,2)
+```
+
+## Season 3
+
+
+```{r}
+plotrating(rating,3)
+```
+
+## Season 4
+
+```{r}
+plotrating(rating,4)
+```
+
+## Season 5
+
+```{r}
+plotrating(rating,5)
+```
+
+## Season 6
+
+
+```{r}
+plotrating(rating,6)
+```
+
+## Season 7
+
+
+```{r}
+plotrating(rating,7)
+```
+
+## Season 8
+
+```{r}
+plotrating(rating,8)
+```
+
+## Season 9
+
+```{r}
+plotrating(rating,9)
+```
+:::

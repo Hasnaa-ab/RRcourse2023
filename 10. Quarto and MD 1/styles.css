@@ -1,0 +1,67 @@
+/* Grey and Purple Inspired Style File */
+
+body {
+    background-color: #f5f5f5; /* Light Grey */
+    color: #333333; /* Dark Grey */
+    font-family: "New Century Schoolbook", "TeX Gyre Schola, serif";
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    color: #8a4baf; /* Medium Grey */
+    font-family: "New Century Schoolbook", "TeX Gyre Schola, serif";
+}
+
+a {
+    color: #8a4baf; /* Purple */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #633b87; /* Darker Purple on hover */
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+.button:hover {
+    background-color: #633b87; /* Darker Purple on hover */
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+/* Example of using gradients with grey and purple */
+.header {
+    background: linear-gradient(to right, #8a4baf, #633b87); /* Purple gradient */
+    color: #ffffff; /* White */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Example of using box shadow with purple color */
+.panel-tabset {
+    background-color: #ffffff; /* White */
+    color: #633b87;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 2px 6px rgba(138, 75, 175, 0.2); /* Purple box shadow */
+    margin: 10%;
+}
+
+.nav-link {
+    color: #633b87;
+
+}
+
+.cell {
+    background-color: #ffffff; /* White */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 2px 6px rgba(138, 75, 175, 0.2); /* Purple box shadow */
+}
