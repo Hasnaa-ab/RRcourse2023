@@ -1,0 +1,132 @@
+---
+title: "Study Metadata Analysis"
+author: "Hassnaa Abdelghany"
+format:
+  html:
+    code-fold: true
+editor: visual
+toc: true
+---
+
+## Loading data
+
+```{r}
+library(readxl)
+library(meta)
+library(tidyr)
+library(dplyr)
+read_excel("data/metaanalysis_data.xlsx") -> stu.meta
+stu.meta %>% names()
+
+stu.meta %>% 
+  select(Study,
+         Mean_girls_play_female,
+         Mean_girls_play_male,
+         SD_girls_play_female,
+         SD_girls_play_male,
+         N_girls,
+         Mean_boys_play_female,
+         SD_boys_play_female,
+         N_boys,
+         `Age (months)`,
+         `Parent present`,
+         `Male authors`,
+         `Female authors`,
+         Year) -> subdata
+```
+
+I am interested in girls playing with boys toys (since I loved to play with cars as a kid :D).
+
+## First Meta Analysis  Fixed and random setting
+
+```{r}
+metagen( 
+        #sm = "RD",
+         data = subdata,
+         TE = Mean_girls_play_male,
+         seTE = SD_girls_play_male,
+         n.e = N_girls,
+         studlab = Study
+  
+) -> model
+
+model
+```
+
+```{r}
+model2 <- metacont(data = subdata,
+                   n.e = N_girls,
+                   mean.e = Mean_girls_play_male,
+                   sd.e = SD_girls_play_male,
+                   n.c = N_boys,
+                   mean.c = Mean_boys_play_female,
+                   sd.c = SD_boys_play_female,
+                   comb.fixed = F,
+                   studlab = Study)
+
+model2
+```
+
+```{r}
+model2 <- metacont(data = subdata,
+                   n.e = N_girls,
+                   mean.e = Mean_girls_play_male,
+                   sd.e = SD_girls_play_male,
+                   n.c = N_boys,
+                   mean.c = Mean_boys_play_female,
+                   sd.c = SD_boys_play_female,
+                   comb.fixed = T,
+                   studlab = Study)
+
+model2
+
+model3 <- metacont(data = subdata,
+                   n.e = N_girls,
+                   mean.e = Mean_girls_play_male,
+                   sd.e = SD_girls_play_male,
+                   n.c = N_boys,
+                   mean.c = Mean_boys_play_female,
+                   sd.c = SD_boys_play_female,
+                   comb.fixed = F,
+                   studlab = Study)
+
+model3
+```
+
+## Forest Plot
+
+to see how studies are alike I am using forest plot. it is interesting how sorting with study year can reveal study groups orientation. we observe how the SD is getting lower over years.
+
+```{r}
+model %>% forest(sortvar = Year)
+model2 %>% forest(sortvar = Year)
+```
+
+## Funnel plot
+
+now I explore the bias in studies.
+
+```{r}
+model %>% funnel(bg = "#E4E88F",
+                 studlab = TRUE,
+                 cex.studlab = 0.4,
+                 level = 0.95,
+                 contour = c(0.9, 0.95, 0.99),
+                 col.contour = c("#7E9379", "#61821B", '#B4E6A8'))
+
+model2 %>% funnel(bg = "#E4E88F",
+                 studlab = TRUE,
+                 cex.studlab = 0.4,
+                 level = 0.95,
+                 contour = c(0.9, 0.95, 0.99),
+                 col.contour = c("#7E9379", "#61821B", '#B4E6A8'))
+
+```
+
+## Regression 
+
+```{r}
+model3 %>% metareg(`Male authors` + `Female authors` + `Age (months)`)
+```
+
+it seems from the regression that factors impacting the studies are different from author gender and age.
